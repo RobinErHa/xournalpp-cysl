@@ -21,6 +21,9 @@
     {
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = with pkgs; [
+          clang
+          clang-tools
+
           gsettings-desktop-schemas
           adwaita-icon-theme
           alsa-lib
