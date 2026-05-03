@@ -16,9 +16,40 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1642543148,
+        "narHash": "sha256-5ApUU6DR3QA7EDeVMGUtM6OZonNTvdQJuxGfGiTH8gc=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f76bef61369be38a10c7a1aa718782a60340d9ff",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f76bef61369be38a10c7a1aa718782a60340d9ff",
+        "type": "github"
+      }
+    },
+    "render-helper": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "path": "./src/util/pdf_render_helper",
+        "type": "path"
+      },
+      "original": {
+        "path": "./src/util/pdf_render_helper",
+        "type": "path"
+      },
+      "parent": []
+    },
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
+        "render-helper": "render-helper",
         "vuln-nixpkgs": "vuln-nixpkgs"
       }
     },
