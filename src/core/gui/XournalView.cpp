@@ -68,7 +68,7 @@ XournalView::XournalView(GtkWidget* parent, Control* control, ScrollHandling* sc
     Document* doc = control->getDocument();
     doc->lock_shared();
     if (doc->getPdfPageCount() != 0) {
-        this->cache = std::make_unique<PdfCache>(doc->getPdfDocument(), control->getSettings());
+        this->cache = std::make_unique<PdfCache>(doc->getPdfDocument(), control->getSettings(), doc->getPdfFilepath());
     }
     doc->unlock_shared();
 
@@ -510,7 +510,7 @@ void XournalView::recreatePdfCache() {
     Document* doc = control->getDocument();
     doc->lock_shared();
     if (doc->getPdfPageCount() != 0) {
-        this->cache = std::make_unique<PdfCache>(doc->getPdfDocument(), control->getSettings());
+        this->cache = std::make_unique<PdfCache>(doc->getPdfDocument(), control->getSettings(), doc->getPdfFilepath());
     }
     doc->unlock_shared();
 }
