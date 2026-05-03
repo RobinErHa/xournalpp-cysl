@@ -33,7 +33,7 @@ SidebarPreviewBase::SidebarPreviewBase(Control* control, const char* menuId, con
     Document* doc = this->control->getDocument();
     doc->lock_shared();
     if (doc->getPdfPageCount() != 0) {
-        this->cache = std::make_unique<PdfCache>(doc->getPdfDocument(), control->getSettings());
+        this->cache = std::make_unique<PdfCache>(doc->getPdfDocument(), control->getSettings(), doc->getPdfFilepath());
     }
     doc->unlock_shared();
 
@@ -99,7 +99,7 @@ void SidebarPreviewBase::documentChanged(DocumentChangeType type) {
         Document* doc = control->getDocument();
         doc->lock_shared();
         if (doc->getPdfPageCount() != 0) {
-            this->cache = std::make_unique<PdfCache>(doc->getPdfDocument(), control->getSettings());
+            this->cache = std::make_unique<PdfCache>(doc->getPdfDocument(), control->getSettings(), doc->getPdfFilepath());
         }
         doc->unlock_shared();
         updatePreviews();

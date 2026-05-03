@@ -14,6 +14,7 @@
 #include <cstddef>  // for size_t
 #include <deque>    // for deque
 #include <mutex>    // for mutex
+#include <filesystem.h> //for path
 
 #include <cairo.h>  // for cairo_t, cairo_surface_t
 
@@ -29,8 +30,11 @@ class Settings;
 
 class PdfCache {
 public:
-    PdfCache(const XojPdfDocument& doc, Settings* settings);
+    // PdfCache(const XojPdfDocument& doc, Settings* settings);
+    PdfCache(const XojPdfDocument& doc, Settings* settings, fs::path pdfFilepath);
     virtual ~PdfCache();
+
+
 
 private:
     PdfCache(const PdfCache& cache);
@@ -75,8 +79,21 @@ private:
      */
     const PdfCacheEntry* cache(XojPdfPageSPtr popplerPage, xoj::view::Mask&& buffer);
 
+    /**
+     * @brief Render one PDF page out-of-process via the firejailed
+     *        xopp-render-helper, then blit the result into [target].
+     *
+     * @return true on success (target now contains the rendered page);
+     *         false if the helper was unavailable, crashed, or returned
+     *         a non-zero exit status. On false the caller should either
+     *         fall back to in-process rendering or surface a render error.
+     */
+    bool renderViaFirejail(cairo_t* target, size_t pdfPageNo, double zoom,
+                           double pageWidth, double pageHeight);
+
 private:
     XojPdfDocument pdfDocument;
+    fs::path pdfFilepath;
 
     std::mutex renderMutex;
 

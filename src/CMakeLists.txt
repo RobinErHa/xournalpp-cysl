@@ -14,7 +14,7 @@ add_library(xoj::defaults ALIAS defaults)
 if (MSVC) # clang-cl.exe, cl.exe
   target_compile_definitions(defaults INTERFACE NOMINMAX WIN32_LEAN_AND_MEAN)
   target_compile_options(defaults INTERFACE -utf-8)
-else(MSVC) # gnu clang with gnu driver, 
+else(MSVC) # gnu clang with gnu driver,
   target_compile_options(defaults INTERFACE -Wall -Wreturn-type -Wuninitialized -Wunused-value -Wunused-variable -Wconversion)
 endif ()
 # Todo (support-v3.10): guard this variable with cmake_dependent_option for CMake 3.10, and NOT(GCC)
@@ -139,7 +139,7 @@ if (WIN32)
   add_custom_target(xournalpp_icon DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/win32/xournalpp.ico)
   add_dependencies(xournalpp xournalpp_icon)
   add_dependencies(xournalpp-wrapper xournalpp_icon)
-  
+
   # windows specific source files
   target_sources(xournalpp PRIVATE exe/win32/console.cpp)
   target_sources(xournalpp-wrapper PRIVATE exe/win32/console.cpp)
@@ -147,7 +147,7 @@ if (WIN32)
     target_sources(xournalpp PRIVATE exe/win32/gui_main.cpp)
     target_sources(xournalpp-wrapper PRIVATE exe/win32/gui_main.cpp)
   endif()
-  
+
   # windows specific appinfo
   if(NOT MSVC)
     set(CMAKE_RC_COMPILE_OBJECT "<CMAKE_RC_COMPILER> -O coff -i <SOURCE> -o <OBJECT>")
@@ -172,3 +172,4 @@ install(TARGETS xournalpp
         )
 
 add_subdirectory(xoj-preview-extractor)
+add_subdirectory(util/pdf_render_helper)
